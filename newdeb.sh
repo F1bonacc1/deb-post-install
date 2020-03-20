@@ -23,3 +23,19 @@ sudo add-apt-repository ppa:longsleep/golang-backports
 sudo apt update
 sudo apt install golang-go
 
+
+install_dockercompose() {
+    if [[ -z $(which docker) ]]; then
+        echo "Need To install Docker first "
+    fi
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose 
+    sudo chmod +x /usr/local/bin/docker-compose 
+    sudo docker-compose --version 
+}
+
+install_typora() {
+    wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+    sudo add-apt-repository 'deb https://typora.io/linux ./'
+    sudo apt-get update
+    sudo apt-get install typora
+}
