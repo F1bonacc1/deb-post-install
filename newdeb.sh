@@ -31,6 +31,7 @@ git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/pl
 
 #vscode
 install_vscode(){
+    echo_info " ** Installing VSCode ** "
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     sudo apt update
@@ -39,12 +40,14 @@ install_vscode(){
 
 #golang
 install_golang() {
+    echo_info " ** Installing GoLang ** "
     sudo add-apt-repository ppa:longsleep/golang-backports
     sudo apt update
     sudo apt install golang-go -y
 }
 
 install_docker_ce() {
+    echo_info " ** Installing Docker ** "
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable" 
     sudo apt-get update
@@ -54,6 +57,7 @@ install_docker_ce() {
 }
 
 install_dockercompose() {
+    echo_info " ** Installing Docker Compose ** "
     if [[ -z $(which docker) ]]; then
         echo "Need To install Docker first "
     fi
@@ -63,6 +67,7 @@ install_dockercompose() {
 }
 
 install_typora() {
+    echo_info " ** Installing Typora ** "
     wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
     sudo add-apt-repository 'deb https://typora.io/linux ./'
     sudo apt-get update
