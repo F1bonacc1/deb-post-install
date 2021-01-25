@@ -18,7 +18,7 @@ echo_fail()   { echo -e "${ANSI_RED}${@}${ANSI_RST}"; }
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install git zsh vim firefox -y
+sudo apt install git zsh vim -y
 sudo apt install curl wget -y
 sudo apt install fonts-powerline -y
 sudo apt install software-properties-common apt-transport-https ca-certificates -y
@@ -92,6 +92,13 @@ install_node() {
     npm install npm@latest -g
 }
 
+#chrome
+install_chrome(){
+    echo_info " ** Installing Google Chrome ** "
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt install ./google-chrome-stable_current_amd64.deb -y
+}
+
 
 install_vscode
 install_golang
@@ -99,3 +106,4 @@ install_docker_ce
 install_dockercompose
 install_typora
 install_node
+install_chrome
