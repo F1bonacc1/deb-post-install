@@ -16,21 +16,24 @@ echo_warn()   { echo -e "${ANSI_YEL}${@}${ANSI_RST}"; }
 echo_debug()  { echo -e "${ANSI_VIO}${@}${ANSI_RST}"; }
 echo_fail()   { echo -e "${ANSI_RED}${@}${ANSI_RST}"; }
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install git zsh vim -y
-sudo apt install curl wget -y
-sudo apt install fonts-powerline -y
-sudo apt install software-properties-common apt-transport-https ca-certificates -y
 
-#oh my zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 
-#Fuzzy Finder
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
+prepare_server(){
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install git zsh vim curl wget fonts-powerline software-properties-common apt-transport-https ca-certificates -y
+}
+
+install_ohmyzsh(){
+    #oh my zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
+    
+    #Fuzzy Finder
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --all
+}
 
 #vscode
 install_vscode(){
@@ -99,11 +102,69 @@ install_chrome(){
     sudo apt install ./google-chrome-stable_current_amd64.deb -y
 }
 
+while :
+do    
+echo ""
+echo ""
+echo_note "New DEB Instalation :"
+echo ""
+echo "[1] Prepare Server"
+echo "[2] Install OH-MY-ZSH"
+echo "[3] Install VSCode"
+echo "[4] Install golang"
+echo "[5] Install docker"
+echo "[6] Install docker-compose"
+echo "[7] Install Typora"
+echo "[8] Install NodeJS"
+echo "[9] Install Google Chrome"
+echo "[18] Run All"
+echo "[19] Exit"
+echo ""
+read choice
 
-install_vscode
-install_golang
-install_docker_ce
-install_dockercompose
-install_typora
-install_node
-install_chrome
+case $choice in
+    1)
+        prepare_server
+        ;;
+    2)
+        install_ohmyzsh
+	;;
+    3)
+        install_vscode
+        ;;
+    4)
+        install_golang
+        ;;
+    5)
+	install_docker_ce
+        ;;
+    6)
+	install_dockercompose
+        ;;
+    7)
+        install_typora
+        ;;
+    8)
+        install_node
+        ;;
+    9)
+	install_chrome
+        ;;
+    18)
+        echo "Run All"
+        prepare_server
+        install_ohmyzsh
+        install_vscode
+        install_golang
+	install_docker_ce
+	install_dockercompose
+        install_typora
+        install_node
+	install_chrome
+        ;;
+    19)
+        exit
+        ;;
+
+esac
+done
